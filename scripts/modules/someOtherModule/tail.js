@@ -4,9 +4,15 @@ RIC.orderTail = RIC.orderTail || [];
 
 RIC.someOtherModule = (function(self){
     RIC.orderTail.push(self);
-    self.init = self.init || {};
-    self.init.late = function(){
-        console.log('someOtherModule - late');
+
+    var tempSelf = {
+        init: {
+            late: function() {
+                console.log('someOtherModule - late');
+            }
+        }
     };
-    return self;
+
+    return $.extend(self, tempSelf);
+
 })(RIC.someOtherModule || {});

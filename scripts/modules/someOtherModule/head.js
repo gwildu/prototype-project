@@ -4,13 +4,19 @@ RIC.orderHead = RIC.orderHead || [];
 
 RIC.someOtherModule = (function(self){
     RIC.orderHead.push(self);
-    self.init = {};
-    self.init.immediate = function(){
-        console.log('someOtherModule - immediate');
+
+    var tempSelf = {
+        init: {
+            immediate: function() {
+                console.log('someOtherModule - immediate');
+            },
+            early: function() {
+                console.log('someOtherModule - early');
+            }
+        }
     };
-    self.init.early = function(){
-        console.log('someOtherModule - early');
-    };
-    return self;
+
+    return $.extend(self, tempSelf);
+
 })(RIC.someOtherModule || {});
 RIC.someOtherModule.init.immediate();
